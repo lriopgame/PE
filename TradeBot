@@ -20,5 +20,5 @@ git add EmotionStats.txt
 git commit -m "Изменен EmotionStats.txt в conflict-branch"
 git checkout main
 git merge conflict-branch
-git add feature.txt
+git add EmotionStats.txt
 git commit -m "Разрешен конфликт при слиянии"

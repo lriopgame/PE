@@ -1,3 +1,9 @@
 mkdir my-project
 cd my-project
 git init
+
+
+# TradeBot
+Бот для торговли на рынке
+git add README.md
+git commit -m "Добавлен README.md"

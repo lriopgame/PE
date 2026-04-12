@@ -1,6 +1,4 @@
-mkdir my-project
-cd my-project
+mkdir TradeBot
+cd TradeBot
 git init
-
-
 git status

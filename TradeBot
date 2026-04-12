@@ -1,0 +1,3 @@
+mkdir TradeBot
+cd TradeBot
+git init

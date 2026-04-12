@@ -3,3 +3,4 @@ cd TradeBot
 git init
 git status
 git remote add origin https://github.com/lriopgame/TradeBot.git
+git push -u origin main

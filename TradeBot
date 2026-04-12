@@ -8,3 +8,4 @@ git checkout -b feature-branch
 git add EmotionStats.txt
 git commit -m "Добавлен файл, в котором показаны эмоции инвесторов"
 git checkout main
+git merge feature-branch

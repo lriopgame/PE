@@ -25,3 +25,90 @@ git commit -m "Разрешен конфликт при слиянии"
 git log --oneline
 git reset --soft HEAD~1
 git checkout -- EmotionStats.txt
+
+
+
+package com.tradebot.util;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+public class PriceCalculatorTest {
+
+    private PriceCalculator priceCalculator;
+    @Before
+    public void setUp() {
+        priceCalculator = new PriceCalculator();
+    }
+    
+    @Test
+    public void testCalculateTotalPrice() {
+        double result = priceCalculator.calculateTotalPrice(45000.0, 0.5);
+        assertEquals(22500.0, result, 0.01);
+    }
+    
+    @Test
+    public void testCalculateCommission() {
+        double commission = priceCalculator.calculateCommission(10000.0, 0.5);
+        assertEquals(50.0, commission, 0.01);
+    }
+    
+    @Test
+    public void testCalculateFinalPrice() {
+        double finalPrice = priceCalculator.calculateFinalPrice(100.0, 10.0, 1.0);
+        assertEquals(1010.0, finalPrice, 0.01);
+    }
+    
+    @Test
+    public void testCalculateProfit() {
+        double profit = priceCalculator.calculateProfit(100.0, 150.0, 10.0);
+        assertEquals(500.0, profit, 0.01);
+    }
+    
+    @Test
+    public void testCalculateProfitPercentage() {
+        double profitPercent = priceCalculator.calculateProfitPercentage(100.0, 150.0);
+        assertEquals(50.0, profitPercent, 0.01);
+    }
+
+
+name: Test PriceCalculator
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Java 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      
+      - name: Run PriceCalculator tests
+        run: ./gradlew test --tests "com.tradebot.util.PriceCalculatorTest"
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/reports/tests/test/
+    }
+}
+
+cd TradeBot
+git init
+git add .
+git commit -m "Initial commit: Add PriceCalculator with tests and GitHub Actions"

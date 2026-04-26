@@ -112,3 +112,67 @@ cd TradeBot
 git init
 git add .
 git commit -m "Initial commit: Add PriceCalculator with tests and GitHub Actions"
+
+def check_price(p):
+    a = 50000
+    b = 51000
+    if p < a:
+        buy_btc()
+        print("buy")
+    elif p > b:
+        sell_btc()
+        print("sell")
+    else:
+        pass
+
+def buy_btc():
+    global balance_usdt
+    global balance_btc
+    amount = balance_usdt / 50000
+    balance_usdt = 0
+    balance_btc = balance_btc + amount
+
+tradebot.py:2:5: E741 ambiguous variable name 'a'
+tradebot.py:3:5: E741 ambiguous variable name 'b'
+tradebot.py:12:1: E302 expected 2 blank lines, found 1
+
+BUY_THRESHOLD = 50000
+SELL_THRESHOLD = 51000
+
+# Глобальное состояние бота
+bot_state = {
+    'balance_usdt': 10000.0,
+    'balance_btc': 0.0
+}
+
+def check_price(current_price):
+    # Проверяет цену и выполняет покупку или продажу
+    if current_price < BUY_THRESHOLD:
+        buy_btc(current_price)
+        log_action("buy", current_price)
+    elif current_price > SELL_THRESHOLD:
+        sell_btc(current_price)
+        log_action("sell", current_price)
+
+def buy_btc(price):
+    # Покупка BTC на все доступные USDT
+    if bot_state['balance_usdt'] <= 0:
+        print("Недостаточно USDT для покупки")
+        return
+
+    amount = bot_state['balance_usdt'] / price
+    bot_state['balance_btc'] += amount
+    bot_state['balance_usdt'] = 0.0
+
+def sell_btc(price):
+    # Продажа всего BTC за USDT
+    if bot_state['balance_btc'] <= 0:
+        print("Нет BTC для продажи")
+        return
+
+    amount_usdt = bot_state['balance_btc'] * price
+    bot_state['balance_usdt'] += amount_usdt
+    bot_state['balance_btc'] = 0.0
+
+def log_action(action, price):
+    print(f"{action.upper()} at ${price:,.2f}")

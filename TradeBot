@@ -176,3 +176,44 @@ def sell_btc(price):
 
 def log_action(action, price):
     print(f"{action.upper()} at ${price:,.2f}")
+
+git checkout -b develop
+git push -u origin develop
+git checkout -b feature/authentication
+git checkout -b feature/api-integration
+git checkout -b feature/notifications
+
+
+git checkout develop
+git checkout -b feature/api-integration
+git add int.py
+git commit -m "Добавление модуль авторизации через API Binance"
+#Добавление обработку ошибок
+git add int.p
+git commit -m "Добавление валидацию API-ключа при авторизации"
+git push origin feature/api-integration
+
+git checkout develop
+git merge feature/api-integration -m "Добавлена авторизация через API ключи"
+git push origin develop
+
+git tag -a v1.0.0 -m "Стабильный релиз TradeBot: получение цены BTC/USDT, логирование"
+git push origin main
+git push origin v1.0.0
+
+# TradeBot Changelog
+## [1.0.0] - 2026-02-17
+### Добавлено
+- Получение рыночной цены BTC/USDT через REST API
+- Простая стратегия скользящей средней
+- Логирование всех сделок в файл
+## [1.1.0] - 2026-02-20
+### Добавлено
+- Авторизация через API ключи Binance
+- Поддержка нескольких торговых пар
+## [1.1.1] - 2026-02-21
+### Исправлено
+- Ошибка повторной авторизации при обрыве соединения
+
+git checkout v1.0.0
+git checkout main

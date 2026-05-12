@@ -217,3 +217,23 @@ git push origin v1.0.0
 
 git checkout v1.0.0
 git checkout main
+
+product_data = {
+    "assets_name": "TON",
+    "quantity": 300,
+    "price": 800.00,
+    "date": "2026-04-15",
+}
+
+response = {
+    "status": "success",
+    "data": {
+        "total_profit": float(profit.total_rprofit),
+        "assets_count": profit.assets_count,
+        "abc_categories": {
+            "A": [item.assets_name for item in abc_a],
+            "B": [item.assets_name for item in abc_b],
+            "C": [item.assets_name for item in abc_c]
+        }
+    }
+}
